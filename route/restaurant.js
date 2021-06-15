@@ -38,7 +38,7 @@ restaurant.post('/get',async (ctx)=>{
     })
     if(ok){
         ctx.body={
-            msg:"查找成功！！",
+            msg:"查找成功！！!",
             result
             
         }
