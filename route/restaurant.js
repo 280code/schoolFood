@@ -22,9 +22,10 @@ restaurant.get('/floor/get',async (ctx)=>{
 })
 restaurant.post('/get',async (ctx)=>{
     const {floor}=ctx.request.body
+    const floor2 = parseInt(floor)
     console.log(floor)
     var ok=true
-    const sql = `select * from restaurant where floor=${floor};`
+    const sql = `select * from restaurant where floor=${floor2};`
     let result = await new Promise((resolve,reject)=>{
         return db.query(sql,(err,data)=>{
             if(err){

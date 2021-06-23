@@ -2,6 +2,7 @@ const Router = require('koa-router')
 const user = Router()
 const bodyparser = require('koa-bodyparser')
 const db = require('../util')
+const jwt = require('jsonwebtoken')
 user.use(bodyparser())
 
 user.post('/sign',async (ctx)=>{
@@ -92,15 +93,80 @@ user.post('/login',async (ctx)=>{
                   }
             })
           })
+          const token = jwt.sign({username:username,password:password},'secret',{expiresIn:2678400})
+          uptsql=`update userinfo set token = '${token}' where username = '${username}';`
+          let addTokenStatus = await new Promise ((resolve,reject)=>{
+              return db.query(uptsql,(err,data)=>{
+                  if(err){
+                      reject(err)
+                  }else{
+                      resolve(data)
+                  }
+              })
+          })
           ctx.body={
               msg:"登陆成功！！",
               code:true,
+              token,
+              addTokenStatus,
               result
           }
       }
         
     }
     
+})
+
+user.post('/token',async (ctx)=>{
+
+    let {token,username} = ctx.request.body
+    STSql=`select token
+           from userinfo
+           where username='${username}';`
+    const SToken = await new Promise((resolve,reject)=>{
+        return db.query(STSql,(err,data)=>{
+            if(err){
+                reject(err)
+            }
+            else{
+                resolve(data)
+            }
+        })
+    })
+    if(SToken[0]){
+        if(SToken[0]['token']==token){
+            let sql = `select userinfo.username,password,identity,id 'comments.id',
+            createtime 'comments.createtime',favorite from userinfo 
+            left join comments on userinfo.username=comments.username
+            left join favorite on userinfo.username=favorite.username
+            where userinfo.username='${username}';`
+            let result =await new Promise((resolve,reject)=>{
+                return db.query(sql,(err,data)=>{
+                    if(err){
+                        reject(err)
+                    }else{
+                        resolve(data)
+                    }
+              })
+            })
+            ctx.body={
+                code:true,
+                result
+            }
+        }else{
+           ctx.body={
+               code:false,
+               msg:"token不匹配！！"
+           }
+    }
+
+
+    }else{
+        ctx.body={
+            code:false,
+            msg:"token不匹配！！"
+        }
+    }
 })
 
 module.exports =user

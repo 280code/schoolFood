@@ -3,9 +3,10 @@ const menu = Router()
 const bodyparser = require('koa-bodyparser')
 menu.use(bodyparser())
 const db = require('../util')
-
-menu.get('/getall',async (ctx)=>{
+//查找某家店的菜单
+menu.post('/getall',async (ctx)=>{
     const {restaurant}=ctx.request.body
+    console.log(restaurant)
     var ok=true
     const sql = `select * from menu where restaurant = '${restaurant}';`
     let result = await new Promise((resolve,reject)=>{
