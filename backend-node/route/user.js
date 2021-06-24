@@ -151,7 +151,7 @@ user.post('/token',async (ctx)=>{
             })
             ctx.body={
                 code:true,
-                result
+                result:result[0]
             }
         }else{
            ctx.body={
