@@ -109,7 +109,7 @@ user.post('/login',async (ctx)=>{
               code:true,
               token,
               addTokenStatus,
-              result
+              result:result[0]
           }
       }
         
