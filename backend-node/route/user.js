@@ -16,12 +16,14 @@ user.post('/sign',async (ctx)=>{
                 resolve(err.sqlMessage)
                 ctx.body={
                     msg:"用户注册失败，发生错误:"+err.sqlMessage,
-                    sql
+                    sql,
+                    code:false
                 }
             }else{
                 resolve(data)
                 ctx.body={
-                    msg:"用户注册成功！"
+                    msg:"用户注册成功！",
+                    code:true
                 }
             }
         })
