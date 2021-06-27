@@ -40,12 +40,14 @@ user.post('/del',async (ctx)=>{
             if(err){
                 resolve(err.sqlMessage)
                 ctx.body={
-                    msg:"注销用户账号失败，发生错误:"+err.sqlMessage
+                    msg:"注销用户账号失败，发生错误:"+err.sqlMessage,
+                    code:false
                 }
             }else{
                 resolve(data)
                 ctx.body={
-                    msg:"注销成功！"
+                    msg:"注销成功！",
+                    code:true
                 }
             }
         })
