@@ -2,8 +2,8 @@ const Router = require('koa-router')
 const uploadP = new Router()
 const multer = require('koa-multer')
 const upload = multer({dest:"./assets/images"})
-const views = require('koa-views');
 const fs = require('fs')
+const views = require('koa-views');
 uploadP.use(views('views', { map: {html: 'ejs' }}));  
 uploadP.get('/add',async (ctx)=>{
     let title = 'hello koa2'
