@@ -4,7 +4,7 @@ const bodyparser = require("koa-bodyparser");
 restaurant.use(bodyparser());
 const db = require("../util");
 
-restaurant.get("/floor/get", async (ctx) => {
+restaurant.post("/floor/get", async (ctx) => {
   const sql = `select DISTINCT floor from restaurant order by floor;`;
   let result = await new Promise((resolve, reject) => {
     return db.query(sql, (err, data) => {
