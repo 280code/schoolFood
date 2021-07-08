@@ -8,6 +8,7 @@ const soup = require("../route/soup");
 const menu = require("../route/menu");
 const feedback = require("./feedback");
 const category = require("./category");
+const uploadP = require('./uploadP')
 
 router.use("/user", user.routes(), user.allowedMethods());
 router.use("/favorite", favorite.routes(), favorite.allowedMethods());
@@ -17,5 +18,6 @@ router.use("/soup", soup.routes(), soup.allowedMethods());
 router.use("/menu", menu.routes(), menu.allowedMethods());
 router.use("/feedback", feedback.routes(), feedback.allowedMethods());
 router.use("/category", category.routes(), category.allowedMethods());
+router.use('/uploadp',uploadP.routes(),uploadP.allowedMethods())
 
 module.exports = router;
