@@ -11,19 +11,19 @@ restaurant.post("/floor/get", async (ctx) => {
       if (err) {
         reject(err);
       } else {
-        let floor = new Array(data.lenth)
+        let floor = new Array(data.lenth);
         //forEach 回调函数的第一个参数是遍历数组的元素，
         //第二个参数是 元素的位置， 第三个参数是 整个数组的值。
-        data.forEach(function(v,i,a){
-          floor[i]=(v["floor"])
-  });
+        data.forEach(function (v, i, a) {
+          floor[i] = v["floor"];
+        });
         resolve(floor);
       }
     });
   });
- 
+
   ctx.body = {
-    result
+    result,
   };
 });
 restaurant.post("/get", async (ctx) => {
